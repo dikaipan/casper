@@ -1,5 +1,5 @@
 // Import polyfills FIRST before any other imports
-import '../polyfills';
+import './polyfills';
 
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
