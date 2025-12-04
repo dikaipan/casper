@@ -102,6 +102,8 @@ interface PM {
   locationAddress: string | null;
   locationContact: string | null;
   locationContactPhone: string | null;
+  nextPmDate?: string | null;
+  nextPmInterval?: number | null;
   createdAt: string;
 }
 
