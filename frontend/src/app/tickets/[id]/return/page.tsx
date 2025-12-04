@@ -205,8 +205,7 @@ export default function ReturnDeliveryPage() {
         status: err.response?.status,
         payload: {
           ticketId,
-          shippedDate: shippedDateISO,
-          courierService: finalCourierService,
+          notes: notes.trim() || undefined,
         },
       });
 
