@@ -28,8 +28,9 @@ COPY package.json package-lock.json* ./
 
 # Install all dependencies (including devDependencies untuk build)
 # npm ci requires package-lock.json, fallback to npm install if not found
+# IMPORTANT: Must install devDependencies for build (nest CLI is in devDependencies)
 RUN if [ -f package-lock.json ]; then \
-      npm ci; \
+      npm ci --include=dev; \
     else \
       echo "WARNING: package-lock.json not found, using npm install"; \
       npm install; \
