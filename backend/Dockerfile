@@ -20,21 +20,22 @@ FROM node:18-alpine AS production
 
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV=production
-
 # Copy package files (package.json and package-lock.json must be copied together)
 COPY package.json package-lock.json* ./
 
 # Install all dependencies (including devDependencies untuk build)
+# IMPORTANT: Don't set NODE_ENV=production yet, we need devDependencies for build
 # npm ci requires package-lock.json, fallback to npm install if not found
-# IMPORTANT: Must install devDependencies for build (nest CLI is in devDependencies)
+# Must install devDependencies for build (nest CLI is in devDependencies)
 RUN if [ -f package-lock.json ]; then \
-      npm ci --include=dev; \
+      npm ci; \
     else \
       echo "WARNING: package-lock.json not found, using npm install"; \
       npm install; \
     fi
+
+# Set production environment AFTER installing dependencies
+ENV NODE_ENV=production
 
 # Copy all source code first (this should include prisma folder)
 COPY . .
