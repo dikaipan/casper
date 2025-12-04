@@ -3,8 +3,15 @@
 ## ❌ Error yang Terjadi
 
 ```
-Error: No Next.js version detected. Make sure your package.json has "next" in either "dependencies" or "devDependencies". Also check your Root Directory setting matches the directory of your package.json file.
+Error: No Next.js version detected.
+404: NOT_FOUND
 ```
+
+## ⚠️ PENYEBAB UTAMA
+
+**Root Directory BELUM di-set di Vercel Dashboard!**
+
+File `vercel.json` tidak cukup. **WAJIB set Root Directory di Dashboard.**
 
 ## ✅ Solusi (WAJIB DILAKUKAN)
 
