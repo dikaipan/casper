@@ -23,19 +23,31 @@ Panduan lengkap untuk deploy frontend Next.js ke Vercel.
 
 ### Step 2: Configure Project Settings
 
-**⚠️ PENTING: Konfigurasi ini harus di-set dengan benar!**
+**⚠️ PENTING: Ada 2 cara untuk fix error ini. Pilih salah satu:**
 
-#### Root Directory
-- **Root Directory**: `frontend`
-  - Klik **"Edit"** di Root Directory
-  - Pilih **"frontend"** folder
-  - Ini memberitahu Vercel untuk build dari folder `frontend`, bukan root
+#### **Cara 1: Set Root Directory (RECOMMENDED)**
 
-#### Build Settings
+1. Setelah import project, **JANGAN langsung klik Deploy**
+2. Scroll ke bawah, cari section **"Root Directory"**
+3. Klik **"Edit"** di Root Directory
+4. Ketik atau pilih: `frontend`
+5. Klik **"Save"**
+6. Vercel akan auto-detect Next.js dari folder `frontend`
+
+#### **Cara 2: Gunakan vercel.json (Alternatif)**
+
+Jika file `vercel.json` sudah ada di root (sudah di-push ke GitHub), Vercel akan otomatis menggunakan konfigurasi tersebut.
+
+**File `vercel.json` sudah dibuat dan akan:**
+- Build dari folder `frontend`
+- Install dependencies di folder `frontend`
+- Output ke `frontend/.next`
+
+#### Build Settings (Jika Root Directory sudah di-set ke `frontend`)
 - **Framework Preset**: `Next.js` (auto-detect)
-- **Build Command**: `npm run build` (atau biarkan default)
+- **Build Command**: `npm run build` (auto-detect)
 - **Output Directory**: `.next` (auto-detect)
-- **Install Command**: `npm install` (atau biarkan default)
+- **Install Command**: `npm install` (auto-detect)
 
 #### Environment Variables
 Tambahkan environment variables berikut:
