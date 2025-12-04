@@ -13,6 +13,12 @@ export class AppController {
     return this.appService.getHealth();
   }
 
+  @Get('health')
+  @ApiOperation({ summary: 'Health check endpoint (dedicated)' })
+  getHealthCheck(): any {
+    return this.appService.getHealth();
+  }
+
   @Get('version')
   @ApiOperation({ summary: 'Get API version' })
   getVersion(): any {
