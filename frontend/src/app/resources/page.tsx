@@ -279,7 +279,7 @@ export default function ResourcesPage() {
     return matchesSearch && matchesStatus;
   });
 
-  // Paginate cassettes (use filtered length for local pagination)
+  // Paginate cassettes (use filtered length for local pagination, renamed to avoid conflict with state)
   const filteredCassetteTotalPages = Math.ceil(filteredCassettes.length / cassetteItemsPerPage);
   const cassetteStartIndex = (cassetteCurrentPage - 1) * cassetteItemsPerPage;
   const cassetteEndIndex = cassetteStartIndex + cassetteItemsPerPage;
