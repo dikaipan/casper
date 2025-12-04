@@ -1,0 +1,393 @@
+<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+
+    <!-- Gradients for 3D effect -->
+
+    <radialGradient id="bgLight" cx="50%" cy="50%">
+
+      <stop offset="0%" style="stop-color:#fafafa"/>
+
+      <stop offset="100%" style="stop-color:#f5f5f5"/>
+
+    </radialGradient>
+
+    
+
+    <radialGradient id="bgDark" cx="50%" cy="50%">
+
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+
+      <stop offset="100%" style="stop-color:#000000"/>
+
+    </radialGradient>
+
+    
+
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+
+      <stop offset="0%" style="stop-color:#2dd4bf;stop-opacity:0.3" />
+
+      <stop offset="50%" style="stop-color:#2dd4bf;stop-opacity:1" />
+
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:0.3" />
+
+    </linearGradient>
+
+    
+
+    <!-- 3D shadow filters -->
+
+    <filter id="shadow3d">
+
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+
+      <feOffset dx="0" dy="6" result="offsetblur"/>
+
+      <feComponentTransfer>
+
+        <feFuncA type="linear" slope="0.3"/>
+
+      </feComponentTransfer>
+
+      <feMerge>
+
+        <feMergeNode/>
+
+        <feMergeNode in="SourceGraphic"/>
+
+      </feMerge>
+
+    </filter>
+
+    
+
+    <filter id="glow">
+
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+
+      <feMerge>
+
+        <feMergeNode in="coloredBlur"/>
+
+        <feMergeNode in="SourceGraphic"/>
+
+      </feMerge>
+
+    </filter>
+
+    
+
+    <!-- 3D gradient for text -->
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+
+      <stop offset="0%" style="stop-color:#ffffff"/>
+
+      <stop offset="50%" style="stop-color:#e0e0e0"/>
+
+      <stop offset="100%" style="stop-color:#c0c0c0"/>
+
+    </linearGradient>
+
+    
+
+    <!-- Radial gradient for circle depth -->
+
+    <radialGradient id="circleDepth" cx="30%" cy="30%">
+
+      <stop offset="0%" style="stop-color:#2dd4bf;stop-opacity:0.4"/>
+
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:0.1"/>
+
+    </radialGradient>
+
+  </defs>
+
+  
+
+  <!-- Auto-detect color scheme -->
+
+  <style>
+
+    @media (prefers-color-scheme: light) {
+
+      .bg-layer { fill: url(#bgLight); }
+
+      .main-text { fill: #2a2a2a; }
+
+      .text-shadow { fill: #d0d0d0; }
+
+      .circle-stroke { stroke: #14b8a6; opacity: 0.25; }
+
+      .circle-fill { fill: #14b8a6; opacity: 0.12; }
+
+      .accent-stroke { stroke: #14b8a6; opacity: 0.35; }
+
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+      .bg-layer { fill: url(#bgDark); }
+
+      .main-text { fill: url(#textGrad); }
+
+      .text-shadow { fill: #333333; }
+
+      .circle-stroke { stroke: #2dd4bf; opacity: 0.15; }
+
+      .circle-fill { fill: #2dd4bf; opacity: 0.2; }
+
+      .accent-stroke { stroke: #2dd4bf; opacity: 0.4; }
+
+    }
+
+  </style>
+
+  
+
+  <!-- Circular Background -->
+
+  <circle cx="400" cy="400" r="400" class="bg-layer"/>
+
+  
+
+  <!-- 3D layered outer circles -->
+
+  <circle cx="400" cy="400" r="370" fill="none" class="circle-stroke" stroke-width="1"/>
+
+  <circle cx="400" cy="400" r="360" fill="none" class="circle-stroke" stroke-width="2"/>
+
+  <circle cx="400" cy="400" r="345" fill="none" class="circle-stroke" stroke-width="0.5"/>
+
+  
+
+  <!-- 3D depth rings -->
+
+  <circle cx="400" cy="400" r="320" fill="url(#circleDepth)" opacity="0.3"/>
+
+  <circle cx="400" cy="400" r="300" fill="none" class="circle-stroke" stroke-width="0.5" stroke-dasharray="5 10"/>
+
+  
+
+  <!-- Floating 3D circles with depth -->
+
+  <g filter="url(#shadow3d)">
+
+    <circle cx="150" cy="150" r="35" fill="none" class="circle-stroke" stroke-width="2"/>
+
+    <circle cx="150" cy="150" r="30" class="circle-fill"/>
+
+    <circle cx="170" cy="170" r="50" fill="none" class="circle-stroke" stroke-width="1"/>
+
+  </g>
+
+  
+
+  <g filter="url(#shadow3d)">
+
+    <circle cx="650" cy="650" r="40" fill="none" class="circle-stroke" stroke-width="2"/>
+
+    <circle cx="650" cy="650" r="35" class="circle-fill"/>
+
+    <circle cx="630" cy="630" r="55" fill="none" class="circle-stroke" stroke-width="1"/>
+
+  </g>
+
+  
+
+  <!-- Layered orbiting circles for 3D effect -->
+
+  <circle cx="200" cy="350" r="10" class="circle-fill" filter="url(#shadow3d)"/>
+
+  <circle cx="200" cy="350" r="8" fill="#2dd4bf" opacity="0.4"/>
+
+  
+
+  <circle cx="600" cy="330" r="8" class="circle-fill" filter="url(#shadow3d)"/>
+
+  <circle cx="600" cy="330" r="6" fill="#2dd4bf" opacity="0.4"/>
+
+  
+
+  <circle cx="180" cy="550" r="12" class="circle-fill" filter="url(#shadow3d)"/>
+
+  <circle cx="180" cy="550" r="10" fill="#2dd4bf" opacity="0.4"/>
+
+  
+
+  <circle cx="620" cy="520" r="9" class="circle-fill" filter="url(#shadow3d)"/>
+
+  <circle cx="620" cy="520" r="7" fill="#2dd4bf" opacity="0.4"/>
+
+  
+
+  <!-- Small accent dots -->
+
+  <circle cx="250" cy="250" r="5" fill="#2dd4bf" opacity="0.3"/>
+
+  <circle cx="550" cy="240" r="4" fill="#2dd4bf" opacity="0.25"/>
+
+  <circle cx="230" cy="580" r="6" fill="#2dd4bf" opacity="0.2"/>
+
+  <circle cx="570" cy="600" r="5" fill="#2dd4bf" opacity="0.28"/>
+
+  
+
+  <!-- HITACHI text with 3D effect -->
+
+  <g filter="url(#shadow3d)">
+
+    <!-- Shadow layer -->
+
+    <text x="400" y="404" 
+
+          font-family="Arial, sans-serif" 
+
+          font-size="110" 
+
+          font-weight="900" 
+
+          class="text-shadow"
+
+          text-anchor="middle" 
+
+          letter-spacing="16">
+
+      HITACHI
+
+    </text>
+
+    
+
+    <!-- Main text -->
+
+    <text x="400" y="400" 
+
+          font-family="Arial, sans-serif" 
+
+          font-size="110" 
+
+          font-weight="900" 
+
+          class="main-text"
+
+          text-anchor="middle" 
+
+          letter-spacing="16">
+
+      HITACHI
+
+    </text>
+
+  </g>
+
+  
+
+  <!-- 3D curved separator with glow -->
+
+  <path d="M 220 460 Q 400 455 580 460" 
+
+        stroke="url(#lineGrad)" 
+
+        stroke-width="4" 
+
+        fill="none"
+
+        filter="url(#glow)"/>
+
+  
+
+  <!-- Secondary depth curve -->
+
+  <path d="M 220 465 Q 400 460 580 465" 
+
+        class="accent-stroke"
+
+        stroke-width="1" 
+
+        fill="none"
+
+        opacity="0.3"/>
+
+  
+
+  <!-- Additional flowing curves for depth -->
+
+  <path d="M 260 445 Q 340 440 400 442" 
+
+        class="accent-stroke"
+
+        stroke-width="1" 
+
+        fill="none"/>
+
+  <path d="M 400 442 Q 460 440 540 445" 
+
+        class="accent-stroke"
+
+        stroke-width="1" 
+
+        fill="none"/>
+
+  
+
+  <!-- 3D decorative dots with layers -->
+
+  <g filter="url(#shadow3d)">
+
+    <circle cx="210" cy="460" r="6" fill="#2dd4bf" opacity="0.8"/>
+
+    <circle cx="210" cy="459" r="4" fill="#2dd4bf" opacity="0.5"/>
+
+  </g>
+
+  
+
+  <circle cx="220" cy="458" r="3" fill="#2dd4bf" opacity="0.4"/>
+
+  <circle cx="228" cy="459" r="3.5" fill="#2dd4bf" opacity="0.5"/>
+
+  <circle cx="235" cy="460" r="2.5" fill="#2dd4bf" opacity="0.3"/>
+
+  
+
+  <circle cx="565" cy="460" r="2.5" fill="#2dd4bf" opacity="0.3"/>
+
+  <circle cx="572" cy="459" r="3.5" fill="#2dd4bf" opacity="0.5"/>
+
+  <circle cx="580" cy="458" r="3" fill="#2dd4bf" opacity="0.4"/>
+
+  
+
+  <g filter="url(#shadow3d)">
+
+    <circle cx="590" cy="460" r="6" fill="#2dd4bf" opacity="0.8"/>
+
+    <circle cx="590" cy="459" r="4" fill="#2dd4bf" opacity="0.5"/>
+
+  </g>
+
+  
+
+  <!-- Circular corner accents with 3D -->
+
+  <g class="accent-stroke" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#shadow3d)">
+
+    <circle cx="120" cy="120" r="18" stroke-dasharray="12 40"/>
+
+    <circle cx="680" cy="680" r="18" stroke-dasharray="12 40"/>
+
+  </g>
+
+  
+
+  <!-- Inner decorative circles -->
+
+  <circle cx="400" cy="400" r="280" fill="none" class="circle-stroke" stroke-width="0.5" stroke-dasharray="8 12" opacity="0.2"/>
+
+  <circle cx="400" cy="400" r="260" fill="none" class="circle-stroke" stroke-width="0.3" stroke-dasharray="5 15" opacity="0.15"/>
+
+  
+
+</svg>

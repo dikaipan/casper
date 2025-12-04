@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: hcm-postgres
+    environment:
+      POSTGRES_DB: hcm_development
+      POSTGRES_USER: hcm_user
+      POSTGRES_PASSWORD: hcm_password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hcm-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hcm-backend
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://hcm_user:hcm_password@postgres:5432/hcm_development
+      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+      PORT: 3000
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+    networks:
+      - hcm-network
+    command: npm run start:dev
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hcm-frontend
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3000
+    ports:
+      - '3001:3000'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    networks:
+      - hcm-network
+    command: npm run dev
+
+volumes:
+  postgres_data:
+
+networks:
+  hcm-network:
+    driver: bridge
+
