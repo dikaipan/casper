@@ -47,8 +47,10 @@ async function bootstrap() {
 
   // Enable CORS - Security: Strict origin validation
   const isProduction = process.env.NODE_ENV === 'production';
+  const corsOrigin = process.env.CORS_ORIGIN;
+  
   const allowedOrigins = isProduction
-    ? (process.env.CORS_ORIGIN ? [process.env.CORS_ORIGIN] : [])
+    ? (corsOrigin ? [corsOrigin] : [])
     : [
         'http://localhost:3000',
         'http://localhost:3001',
@@ -58,20 +60,38 @@ async function bootstrap() {
         'http://localhost:3005',
       ];
   
-  if (process.env.CORS_ORIGIN && !isProduction) {
-    allowedOrigins.push(process.env.CORS_ORIGIN);
+  if (corsOrigin && !isProduction) {
+    allowedOrigins.push(corsOrigin);
   }
+  
+  // Log CORS configuration for debugging
+  console.log('🔒 CORS Configuration:');
+  console.log(`   NODE_ENV: ${isProduction ? 'production' : 'development'}`);
+  console.log(`   CORS_ORIGIN: ${corsOrigin || 'not set'}`);
+  console.log(`   Allowed Origins: ${allowedOrigins.join(', ') || 'none'}`);
   
   app.enableCors({
     origin: (origin, callback) => {
+      // Log incoming origin for debugging
+      if (isProduction) {
+        console.log(`🌐 CORS Request from origin: ${origin || 'no origin'}`);
+      }
+      
       // Allow requests with no origin (mobile apps, Postman, etc.) in development only
       if (!origin && !isProduction) {
         return callback(null, true);
       }
       
-      if (!origin || allowedOrigins.includes(origin)) {
+      // In production, require origin
+      if (isProduction && !origin) {
+        return callback(new Error('Origin is required in production'));
+      }
+      
+      // Check if origin is allowed
+      if (origin && allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error(`❌ CORS blocked: ${origin} not in allowed origins: ${allowedOrigins.join(', ')}`);
         callback(new Error('Not allowed by CORS'));
       }
     },
