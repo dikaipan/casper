@@ -1,3 +1,12 @@
+// Fix for @nestjs/schedule: Ensure crypto is available globally BEFORE any imports
+import * as crypto from 'crypto';
+if (typeof globalThis.crypto === 'undefined') {
+  (globalThis as any).crypto = crypto;
+}
+if (typeof (globalThis as any).crypto.randomUUID === 'undefined') {
+  (globalThis as any).crypto.randomUUID = () => crypto.randomUUID();
+}
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -5,12 +14,6 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import helmet from 'helmet';
 import * as express from 'express';
-import * as crypto from 'crypto';
-
-// Fix for @nestjs/schedule: Ensure crypto is available globally
-if (typeof globalThis.crypto === 'undefined') {
-  (globalThis as any).crypto = crypto;
-}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
