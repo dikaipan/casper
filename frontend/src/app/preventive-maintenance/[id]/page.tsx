@@ -487,7 +487,8 @@ export default function PMDetailPage() {
   const isSuperAdmin = user?.role === 'SUPER_ADMIN';
   const isRcManager = user?.role === 'RC_MANAGER';
   // Pengelola can cancel their own PM requests, Hitachi can cancel any PM
-  const canCancel = (isHitachi || (isPengelola && pm?.requestedByPengelola?.pengelolaId === user?.pengelolaId)) 
+  // Compare requestedByPengelola.id with user.id for pengelola users
+  const canCancel = (isHitachi || (isPengelola && pm?.requestedByPengelola?.id === user?.id)) 
     && pm?.status !== 'COMPLETED' 
     && pm?.status !== 'CANCELLED';
   // Hitachi users (RC_MANAGER and SUPER_ADMIN) can delete PM
