@@ -28,6 +28,9 @@ README.md
 *.md
 doc/
 
+# IMPORTANT: Do NOT ignore prisma folder - needed for build
+# prisma/
+
 # IDE
 .vscode
 .idea

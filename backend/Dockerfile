@@ -25,10 +25,12 @@ ENV NODE_ENV=production
 
 # Copy package files
 COPY package*.json ./
-COPY prisma ./prisma/
 
 # Install all dependencies (including devDependencies untuk build)
 RUN npm ci
+
+# Copy prisma folder (must be copied before generate)
+COPY prisma ./prisma/
 
 # Copy source code
 COPY . .
