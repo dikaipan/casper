@@ -12,40 +12,7 @@ import * as express from 'express';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Security: Helmet for security headers
-  app.use(helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-        scriptSrc: ["'self'"],
-        imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'"],
-        fontSrc: ["'self'"],
-        objectSrc: ["'none'"],
-        mediaSrc: ["'self'"],
-        frameSrc: ["'none'"],
-      },
-    },
-    crossOriginEmbedderPolicy: false, // Allow for development
-    hsts: {
-      maxAge: 31536000,
-      includeSubDomains: true,
-      preload: true,
-    },
-  }));
-
-  // Increase body size limit for large file uploads (50MB)
-  app.use(express.json({ limit: '50mb' }));
-  app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
-  // Fix BigInt serialization issue
-  // Override JSON.stringify to handle BigInt values
-  (BigInt.prototype as any).toJSON = function() {
-    return this.toString();
-  };
-
-  // Enable CORS - Security: Strict origin validation
+  // Enable CORS FIRST - before other middleware to handle preflight requests
   const isProduction = process.env.NODE_ENV === 'production';
   const corsOrigin = process.env.CORS_ORIGIN;
   
@@ -102,7 +69,43 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
     exposedHeaders: ['X-Total-Count', 'X-Page', 'X-Per-Page'],
     maxAge: 86400, // 24 hours
+    preflightContinue: false, // Let NestJS handle preflight
+    optionsSuccessStatus: 204, // Return 204 for OPTIONS requests
   });
+
+  // Security: Helmet for security headers (after CORS)
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", ...allowedOrigins], // Allow connections to CORS origins
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false, // Allow for CORS
+    crossOriginResourcePolicy: { policy: 'cross-origin' }, // Allow CORS resources
+    hsts: {
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    },
+  }));
+
+  // Increase body size limit for large file uploads (50MB)
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+  // Fix BigInt serialization issue
+  // Override JSON.stringify to handle BigInt values
+  (BigInt.prototype as any).toJSON = function() {
+    return this.toString();
+  };
 
   // Global exception filter
   app.useGlobalFilters(new HttpExceptionFilter());
