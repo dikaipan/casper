@@ -1,6 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Force consistent base font size and prevent zoom/scaling issues */
+html {
+  font-size: 16px !important;
+  zoom: 1 !important;
+  -webkit-text-size-adjust: 100% !important;
+  -moz-text-size-adjust: 100% !important;
+  -ms-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
  
 @layer base {
   :root {
@@ -137,9 +147,12 @@
   /* Better text contrast for body text */
   body {
     color: hsl(var(--foreground));
-    font-size: 1rem; /* 16px - consistent base size */
+    font-size: 16px !important; /* Force 16px - consistent base size */
     line-height: 1.65; /* Improved line height for better readability */
     letter-spacing: -0.011em; /* Slightly tighter for Inter font */
+    zoom: 1 !important;
+    transform: scale(1) !important;
+    -webkit-transform: scale(1) !important;
   }
   
   /* Improved readability for body text */
@@ -234,36 +247,37 @@
 }
 
 @layer utilities {
-  /* Smooth scroll behavior */
+  /* Smooth scroll behavior and prevent zoom scaling */
   html {
     scroll-behavior: smooth;
-    font-size: 16px; /* Base font size - prevents browser zoom scaling */
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
+    font-size: 16px !important; /* Base font size - prevents browser zoom scaling */
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+    zoom: 1 !important;
+    -webkit-text-size-adjust: 100% !important;
   }
   
   /* Prevent browser zoom scaling issues */
   * {
     box-sizing: border-box;
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
   
   /* Ensure consistent font rendering across all browsers */
   body {
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    font-size: 1rem !important; /* Force consistent base size */
-  }
-  
-  /* Prevent any scaling on all elements */
-  * {
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+    font-size: 16px !important; /* Force consistent base size in pixels */
+    zoom: 1 !important;
+    transform: scale(1) !important;
+    -webkit-transform: scale(1) !important;
   }
 
   /* ===== DARK MODE TEXT COLORS ===== */

@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
+    maximumScale: 1,
+    userScalable: false,
   },
 };
 
@@ -29,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" className={inter.variable} style={{ fontSize: '16px', zoom: 1 }}>
+      <body className={`${inter.className} antialiased`} style={{ fontSize: '16px', zoom: 1, transform: 'scale(1)' }}>
         {children}
         <Toaster />
       </body>
