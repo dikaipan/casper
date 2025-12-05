@@ -170,7 +170,7 @@ export default function TicketsPage() {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, user, currentPage, itemsPerPage, debouncedSearchTerm, selectedStatus, selectedPriority, router]);
+  }, [isAuthenticated, currentPage, itemsPerPage, debouncedSearchTerm, selectedStatus, selectedPriority, router]);
 
   useEffect(() => {
     if (isAuthenticated) {

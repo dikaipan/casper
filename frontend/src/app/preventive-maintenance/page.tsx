@@ -57,7 +57,7 @@ export default function PreventiveMaintenancePage() {
 
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -74,7 +74,7 @@ export default function PreventiveMaintenancePage() {
     if (currentPage > 1) {
       setCurrentPage(1);
     }
-  }, [dateFilter, selectedStatus, searchTerm]);
+  }, [dateFilter, selectedStatus, searchTerm, currentPage]);
 
   // Update URL query parameter when page changes
   useEffect(() => {

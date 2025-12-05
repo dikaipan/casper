@@ -1486,7 +1486,7 @@ export default function PMDetailPage() {
               Jadwalkan Ulang PM
             </DialogTitle>
             <DialogDescription className="text-slate-600 dark:text-slate-400">
-              Pilih tanggal baru dan berikan alasan untuk menjadwalkan ulang PM {pm?.pmNumber}. PM hanya dapat dijadwalkan ulang dari status "Terjadwal".
+              Pilih tanggal baru dan berikan alasan untuk menjadwalkan ulang PM {pm?.pmNumber}. PM hanya dapat dijadwalkan ulang dari status &quot;Terjadwal&quot;.
             </DialogDescription>
           </DialogHeader>
           <div className="py-4 space-y-4">

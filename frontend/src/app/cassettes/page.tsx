@@ -230,7 +230,7 @@ export default function CassettesPage() {
       } finally {
         setLoading(false);
       }
-  }, [user?.userType, user?.role, user?.pengelolaId, currentPage, itemsPerPage, searchTerm, selectedStatus, sortField, sortDirection]);
+  }, [user?.userType, user?.role, user?.pengelolaId, currentPage, itemsPerPage, searchTerm, selectedStatus, sortField, sortDirection, router, toast]);
 
   useEffect(() => {
     if (isAuthenticated) {

@@ -48,7 +48,7 @@ export default function RepairsPage() {
 
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -61,7 +61,7 @@ export default function RepairsPage() {
     if (currentPage > 1) {
       setCurrentPage(1);
     }
-  }, [dateFilter, selectedStatus, searchTerm]);
+  }, [dateFilter, selectedStatus, searchTerm, currentPage]);
 
   // Update URL query parameter when page changes
   useEffect(() => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
 import { useToast } from '@/hooks/use-toast';
@@ -95,9 +95,9 @@ export default function CreateReplacementCassettePage() {
       fetchDropdownData();
       fetchReplacementTickets();
     }
-  }, [isAuthenticated, isLoading, isHitachi, router, toast]);
+  }, [isAuthenticated, isLoading, isHitachi, router, toast, fetchReplacementTickets, fetchDropdownData]);
 
-  const fetchDropdownData = async () => {
+  const fetchDropdownData = useCallback(async () => {
     try {
       const [typesRes, banksRes] = await Promise.all([
         api.get('/cassettes/types'),
@@ -108,9 +108,9 @@ export default function CreateReplacementCassettePage() {
     } catch (err: any) {
       console.error('Error fetching dropdown data:', err);
     }
-  };
+  }, []);
 
-  const fetchReplacementTickets = async () => {
+  const fetchReplacementTickets = useCallback(async () => {
     try {
       setLoading(true);
       // Fetch tickets with requestReplacement = true and status RESOLVED
@@ -144,7 +144,7 @@ export default function CreateReplacementCassettePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
   const handleSearchTicket = async () => {
     if (!searchTicketNumber.trim()) {
