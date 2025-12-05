@@ -68,22 +68,6 @@ export class RepairsController {
     return this.repairsService.getStatistics();
   }
 
-  @Get('pending-return')
-  @ApiOperation({ 
-    summary: 'Get cassettes pending return (RC Staff only)',
-    description: 'List cassettes with status IN_REPAIR that have completed repair & QC passed. These cassettes are ready to be shipped back to Pengelola.'
-  })
-  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page (default: 50, max: 1000)' })
-  getPendingReturns(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-  ) {
-    const pageNum = page ? parseInt(page, 10) : 1;
-    const limitNum = limit ? Math.min(parseInt(limit, 10), 1000) : 50;
-    return this.repairsService.getPendingReturns(pageNum, limitNum);
-  }
-
   @Get('by-ticket/:ticketId')
   @ApiOperation({ summary: 'Get repair tickets by ticket ID (optimized for large data)' })
   findByTicketId(@Param('ticketId') ticketId: string, @Request() req) {

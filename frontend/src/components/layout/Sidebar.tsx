@@ -93,7 +93,6 @@ export default function Sidebar({ isMobileOpen = false, setIsMobileOpen, collaps
     }
   };
 
-  const [pendingReturnCount, setPendingReturnCount] = useState(0);
   const [pendingConfirmationCount, setPendingConfirmationCount] = useState(0);
   const [newSOCount, setNewSOCount] = useState(0);
   const [pmTasksCount, setPmTasksCount] = useState(0);
@@ -106,23 +105,13 @@ export default function Sidebar({ isMobileOpen = false, setIsMobileOpen, collaps
   useEffect(() => {
     let isMounted = true;
 
-    // Skip polling if user is on the pending confirmation, pending return, or tickets page
-    const isOnPendingPage = pathname.includes('/pending-confirmation') || pathname.includes('/pending-return') || pathname === '/tickets';
+    // Skip polling if user is on the pending confirmation or tickets page
+    const isOnPendingPage = pathname.includes('/pending-confirmation') || pathname === '/tickets';
     if (isOnPendingPage) {
       // Still fetch once on mount, but don't poll
       const fetchOnce = async () => {
         if (!user || !isMounted) return;
         try {
-          if (user.userType === 'HITACHI') {
-            try {
-              const response = await api.get('/repairs/pending-return', { params: { page: 1, limit: 1 } });
-              if (isMounted) setPendingReturnCount(response.data.statistics?.total || 0);
-            } catch (error: any) {
-              if (error.response?.status !== 429) {
-                console.warn('Could not fetch pending return count:', error);
-              }
-            }
-          }
           if (user.userType === 'PENGELOLA') {
             try {
               // Use optimized count endpoint instead of full data endpoint
@@ -214,35 +203,6 @@ export default function Sidebar({ isMobileOpen = false, setIsMobileOpen, collaps
       if (!user || !isMounted) return;
 
       try {
-        // Fetch pending return count for RC Staff - throttle to max once per 5 minutes
-        if (user.userType === 'HITACHI') {
-          const now = Date.now();
-          const lastFetch = lastFetchTimeRef.current['pending-return'] || 0;
-          const timeSinceLastFetch = now - lastFetch;
-          
-          if (timeSinceLastFetch < 300000) { // 5 minutes
-            // Skip this fetch, too soon
-            return;
-          }
-          
-          try {
-            const response = await api.get('/repairs/pending-return', { params: { page: 1, limit: 1 } });
-            if (isMounted) {
-              setPendingReturnCount(response.data.statistics?.total || 0);
-              lastFetchTimeRef.current['pending-return'] = now;
-              retryDelayRef.current = 300000; // Reset to 300 seconds (5 minutes) on success
-            }
-          } catch (error: any) {
-            if (error.response?.status === 429) {
-              // Rate limited - increase delay significantly
-              retryDelayRef.current = Math.min(retryDelayRef.current * 2, 900000); // Max 15 minutes
-              lastFetchTimeRef.current['pending-return'] = now; // Update time to prevent immediate retry
-              console.warn('Rate limited for pending return count, retrying in', retryDelayRef.current / 1000, 'seconds');
-            } else {
-              console.warn('Could not fetch pending return count:', error);
-            }
-          }
-        }
 
         // Fetch pending confirmation count for Pengelola
         if (user.userType === 'PENGELOLA') {
@@ -427,7 +387,6 @@ export default function Sidebar({ isMobileOpen = false, setIsMobileOpen, collaps
         { icon: Monitor, label: 'Machines', link: '/machines' },
         { icon: Disc, label: 'Cassettes', link: '/cassettes' },
         { icon: Wrench, label: 'Repairs', link: '/repairs', hitachiOnly: true },
-        { icon: Send, label: 'Pending Return', link: '/repairs/pending-return', hitachiOnly: true, badgeCount: pendingReturnCount },
         { icon: Settings, label: 'PM Tasks', link: '/preventive-maintenance', hitachiOnly: true, badgeCount: pmTasksCount },
       ],
     },
@@ -442,7 +401,7 @@ export default function Sidebar({ isMobileOpen = false, setIsMobileOpen, collaps
         { icon: History, label: 'SO History', link: '/history' },
       ],
     },
-  ], [pendingReturnCount, pendingConfirmationCount, newSOCount, pmTasksCount]);
+  ], [pendingConfirmationCount, newSOCount, pmTasksCount]);
 
   // Filter menu groups berdasarkan permissions
   const filteredGroups = menuGroups
