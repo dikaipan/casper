@@ -16,7 +16,7 @@
 
 ## 📖 Tentang Project
 
-**HCS Cassette Management (HCM)** adalah sistem manajemen kaset ATM yang komprehensif untuk membantu bank dan vendor mengelola seluruh lifecycle kaset, dari inventory hingga maintenance. Sistem ini dirancang untuk meningkatkan efisiensi operasional, mengurangi downtime, dan memastikan kaset selalu dalam kondisi optimal.
+**CASTER - Cassette Tracking & Retrieval System** adalah sistem manajemen kaset ATM yang komprehensif untuk membantu bank dan vendor mengelola seluruh lifecycle kaset, dari inventory hingga maintenance. Sistem ini dirancang untuk meningkatkan efisiensi operasional, mengurangi downtime, dan memastikan kaset selalu dalam kondisi optimal.
 
 ### 🎯 Tujuan Utama
 
