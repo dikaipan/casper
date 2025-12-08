@@ -214,6 +214,24 @@ Setelah seed database, gunakan credentials default:
 
 ---
 
+## 🗄️ Database Schema (Ringkas)
+
+Gambaran singkat tabel inti (detail lengkap di `backend/SCHEMA_GUIDE.md`):
+
+- **customers_banks**: Master bank pelanggan; relasi ke mesin & kaset (`id` → machines.customerBankId, cassettes.customerBankId).
+- **pengelola & bank_pengelola_assignments**: Vendor/pengelola dan assignment bank + cabang.
+- **machines**: Mesin ATM; relasi ke kaset (machineId), status (OPERATIONAL/UNDER_REPAIR/INACTIVE).
+- **cassette_types**: Tipe kaset (MAIN/BACKUP) dan machineType.
+- **cassettes**: Inventory kaset dengan status enum (`OK`, `BAD`, `IN_TRANSIT_TO_RC`, `IN_REPAIR`, `READY_FOR_PICKUP`, `IN_TRANSIT_TO_PENGELOLA`, `SCRAPPED`); relasi ke bank, pengelola, mesin, replacement (self-relation).
+- **problem_tickets**: Service order (repair/replacement); relasi ke kaset tunggal atau detail multi-kaset (`ticketCassetteDetails`).
+- **repair_tickets**: Tiket perbaikan di RC; hasil QC dapat mengubah kaset ke `READY_FOR_PICKUP` atau `SCRAPPED`.
+- **cassette_returns**: Konfirmasi pickup dengan tanda tangan RC/Pengelola.
+- **preventive_maintenance_tasks**: PM terjadwal per mesin & kaset.
+
+Skema visual & field lengkap: lihat `backend/SCHEMA_GUIDE.md` atau Swagger untuk model API.
+
+---
+
 ## 🏗️ Project Structure
 
 ```
