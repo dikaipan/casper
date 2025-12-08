@@ -23,7 +23,7 @@
 
 - ✅ **Manajemen Inventory** - Tracking kaset real-time dengan status dan lokasi
 - ✅ **Service Order Management** - Alur kerja lengkap untuk repair dan replacement
-- ✅ **Repair Tracking** - Monitoring perbaikan kaset dari awal hingga selesai
+- ✅ **Repair Tracking** - Monitoring perbaikan kaset dari awal hingga selesai dan ketersedian kaset di flm termonitoring
 - ✅ **Multi-User Support** - Role-based access untuk Pengelola, RC Staff, dan Hitachi Admin
 
 ---
