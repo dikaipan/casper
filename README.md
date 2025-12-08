@@ -1,5 +1,4 @@
-# 🎯 HCS Cassette Management System (HCM)
-
+# 🎯 CASTER - Cassette Tracking & Retrieval System
 <div align="center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
@@ -23,8 +22,7 @@
 
 - ✅ **Manajemen Inventory** - Tracking kaset real-time dengan status dan lokasi
 - ✅ **Service Order Management** - Alur kerja lengkap untuk repair dan replacement
-- ✅ **Repair Tracking** - Monitoring perbaikan kaset dari awal hingga selesai
-- ✅ **Preventive Maintenance** - Penjadwalan dan tracking maintenance rutin
+- ✅ **Repair Tracking** - Monitoring perbaikan kaset dari awal hingga selesai dan ketersedian kaset di flm termonitoring
 - ✅ **Multi-User Support** - Role-based access untuk Pengelola, RC Staff, dan Hitachi Admin
 
 ---
@@ -50,11 +48,6 @@
   - Status: RECEIVED → IN_PROGRESS → COMPLETED
   - Integration dengan service order
 
-- **📅 Preventive Maintenance**
-  - Auto-scheduling untuk PM rutin
-  - On-demand PM request
-  - Checklist per kaset
-  - Reschedule dan cancellation support
 
 - **👥 User Management**
   - Multi-role: PENGELOLA, RC_STAFF, RC_MANAGER, SUPER_ADMIN
@@ -294,7 +287,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 Untuk pertanyaan atau support:
-- 📧 Email: [your-email@example.com]
+- 📧 Email: [.]
 - 🐛 Issues: [GitHub Issues](https://github.com/dikaipan/casper/issues)
 - 📖 Documentation: [Full Documentation](./doc/README.md)
 
