@@ -191,7 +191,6 @@ export default function DashboardPage() {
     repairUsageByCassette: [],
   });
   const [loadingStats, setLoadingStats] = useState(true);
-  const [pendingConfirmationCount, setPendingConfirmationCount] = useState(0);
   const [loadingNotifications, setLoadingNotifications] = useState(false);
   const retryDelayRef = useRef(120000); // Start with 120 seconds (2 minutes)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -219,20 +218,6 @@ export default function DashboardPage() {
       try {
         setLoadingNotifications(true);
         hasFetchedNotifications.current = true;
-
-        // Fetch pending confirmation count for Pengelola
-        if (user.userType === 'PENGELOLA') {
-          try {
-            const response = await api.get('/tickets/pending-confirmation', { params: { page: 1, limit: 1 } });
-            setPendingConfirmationCount(response.data.statistics?.total || 0);
-          } catch (error: any) {
-            if (error.response?.status !== 429) {
-              // Rate limited or network error - handled silently
-            }
-            // Reset flag on error so it can retry later
-            hasFetchedNotifications.current = false;
-          }
-        }
       } catch (error) {
         // Error fetching notification counts - handled silently
         hasFetchedNotifications.current = false;
