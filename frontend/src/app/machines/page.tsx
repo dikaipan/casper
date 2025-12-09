@@ -300,7 +300,7 @@ export default function MachinesPage() {
 
   const exportToCSV = () => {
     const headers = ['Serial Number', 'Machine Code', 'Model', 'Bank', 'Pengelola', 'Branch', 'City', 'Location', 'Cassettes'];
-    const csvData = machines.map(m => [
+    const csvData = machines.map((m: any) => [
       m.serialNumberManufacturer || 'N/A',
       m.machineCode || 'N/A',
       m.modelName || 'N/A',
@@ -314,7 +314,7 @@ export default function MachinesPage() {
     
     const csv = [
       headers.join(','),
-      ...csvData.map(row => row.map(cell => `"${cell}"`).join(','))
+      ...csvData.map((row: any[]) => row.map(cell => `"${cell}"`).join(','))
     ].join('\n');
     
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -394,7 +394,7 @@ export default function MachinesPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Banks</SelectItem>
-                    {banks.map((bank) => (
+                    {banks.map((bank: any) => (
                       <SelectItem key={bank.id} value={bank.id}>
                         {bank.bankName}
                       </SelectItem>
@@ -444,7 +444,7 @@ export default function MachinesPage() {
                     className="cursor-pointer hover:bg-gray-200"
                     onClick={() => setSelectedBankId(null)}
                   >
-                    Bank: {banks.find(b => b.id === selectedBankId)?.bankName || selectedBankId}
+                    Bank: {banks.find((b: any) => b.id === selectedBankId)?.bankName || selectedBankId}
                     <XCircle className="h-3 w-3 ml-1" />
                   </Badge>
                 )}

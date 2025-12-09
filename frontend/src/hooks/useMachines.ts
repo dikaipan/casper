@@ -10,13 +10,16 @@ export const machineKeys = {
   banks: () => [...machineKeys.all, 'banks'] as const,
 };
 
-export function useMachines(filters: {
-  page?: number;
-  limit?: number;
-  status?: string;
-  search?: string;
-  bankId?: string;
-}) {
+export function useMachines(
+  filters: {
+    page?: number;
+    limit?: number;
+    status?: string;
+    search?: string;
+    bankId?: string;
+  },
+  enabled: boolean = true
+) {
   return useQuery({
     queryKey: machineKeys.list(filters),
     queryFn: async () => {
@@ -41,6 +44,7 @@ export function useMachines(filters: {
       return response.data;
     },
     staleTime: 3 * 60 * 1000, // 3 minutes
+    enabled,
   });
 }
 

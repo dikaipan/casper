@@ -567,7 +567,7 @@ export default function CassettesPage() {
   const exportToCSV = () => {
     const headers = ['Serial Number', 'Cassette Type', 'Machine Type', 'Bank', 'Status', 'Usage Type', 'Cycle Problem (SO)', 'Repair Count', 'Notes'];
     // Note: Export only current page data. For full export, use server-side export endpoint
-    const csvData = paginatedCassettes.map(c => {
+    const csvData = paginatedCassettes.map((c: any) => {
       const singleCassetteCount = c._count?.problemTickets || 0;
       const multiCassetteCount = c._count?.ticketCassetteDetails || 0;
       const problemCount = singleCassetteCount + multiCassetteCount;
@@ -587,7 +587,7 @@ export default function CassettesPage() {
     
     const csv = [
       headers.join(','),
-      ...csvData.map(row => row.map(cell => `"${cell}"`).join(','))
+      ...csvData.map((row: any[]) => row.map(cell => `"${cell}"`).join(','))
     ].join('\n');
     
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -1076,7 +1076,7 @@ export default function CassettesPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {paginatedCassettes.map((cassette, index) => {
+                    {paginatedCassettes.map((cassette: any, index: number) => {
                       // Cycle Problem = berapa kali kaset bermasalah (Service Orders)
                       // Include both single cassette SOs and multi-cassette SOs
                       const problemCount = cassette.problemCount ?? ((cassette._count?.problemTickets || 0) + (cassette._count?.ticketCassetteDetails || 0));
