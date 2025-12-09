@@ -84,7 +84,8 @@ const initializeChart = async () => {
         ChartJS.PointElement,
         ChartJS.Title,
         ChartJS.Tooltip,
-        ChartJS.Legend
+        ChartJS.Legend,
+        ChartJS.Filler // Enable 'fill' option support
       );
       chartInitialized = true;
     } catch (error) {
